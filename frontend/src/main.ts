@@ -28,7 +28,8 @@ export async function realtimeVoice(element: HTMLButtonElement) {
 
   const agent = new RealtimeAgent({
     name: 'Assistant',
-    instructions: 'You are a helpful assistant.',
+    instructions: `You are a helpful assistant that ONLY answers questions related to Indian tourism.
+      If the question is NOT about Indian tourism, reply with exactly: "I can not reply to this question" and do not say anything else.`,
   });
   const session = new RealtimeSession(agent);
   // Automatically connects your microphone and audio output in the browser via WebRTC.
@@ -36,7 +37,7 @@ export async function realtimeVoice(element: HTMLButtonElement) {
     await session.connect({
       // To get this ephemeral key string, you can run the following command or implement the equivalent on the server side:
       // curl -s -X POST https://api.openai.com/v1/realtime/client_secrets -H "Authorization: Bearer $OPENAI_API_KEY" -H "Content-Type: application/json" -d '{"session": {"type": "realtime", "model": "gpt-realtime"}}' | jq .value
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+      apiKey: import.meta.env.VITE_OPENAI_API_KEY,
     });
     console.log('You are connected!');
   } catch (e) {
